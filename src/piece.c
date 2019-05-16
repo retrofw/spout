@@ -9,6 +9,7 @@
 #include "font.h"
 
 SDL_Surface *video;
+// SDL_Surface *ScreenSurface;
 
 unsigned char *vBuffer = NULL;
 
@@ -53,6 +54,8 @@ void initSDL() {
 	atexit(SDL_Quit);
 
 	video = SDL_SetVideoMode(320, 240, 16, SDL_DOUBLEBUF | SDL_HWSURFACE | SDL_HWPALETTE);
+	// ScreenSurface = SDL_SetVideoMode(320, 480, 16, SDL_HWSURFACE);
+	// video = SDL_CreateRGBSurface(SDL_SWSURFACE, 320, 240, 16, 0, 0, 0, 0);
 	if(video == NULL) {
 		fprintf(stderr, "Couldn't set video mode: %s\n", SDL_GetError());
 		exit(1);
@@ -88,10 +91,26 @@ void SDL_ScaleSurface(unsigned int Width, unsigned int Height) {
 }
 
 void pceLCDTrans() {
-    if(SDL_MUSTLOCK(video)) SDL_LockSurface(video);
+  if(SDL_MUSTLOCK(video)) SDL_LockSurface(video);
 	SDL_ScaleSurface(320,240);
-    if (SDL_MUSTLOCK(video)) SDL_UnlockSurface(video);
+  if (SDL_MUSTLOCK(video)) SDL_UnlockSurface(video);
 	SDL_Flip(video);
+
+	
+	// if(SDL_MUSTLOCK(ScreenSurface)) SDL_LockSurface(ScreenSurface);
+	// int x, y;
+	// uint32_t *s = video->pixels;
+	// uint32_t *d = ScreenSurface->pixels;
+	// for(uint8_t y = 0; y < 240; y++, s += 160, d += 320) 
+	// 	memmove(d, s, 1280); // double-line fix by pingflood, 2018
+	// /*for(y=0; y<240; y++){
+	// 	for(x=0; x<160; x++){
+	// 		*d++ = *s++;
+	// 	}
+	// 	d+= 160;
+	// }*/
+	// if(SDL_MUSTLOCK(ScreenSurface)) SDL_UnlockSurface(ScreenSurface);
+	// SDL_Flip(ScreenSurface);
 }
 
 unsigned char *keys;
@@ -105,7 +124,7 @@ int pcePadGet() {
 		SDLK_UP,		SDLK_DOWN,		SDLK_LEFT,		SDLK_RIGHT,
 #ifdef OPENDINGUX
 		SDLK_LCTRL,			SDLK_LALT,			SDLK_LCTRL,			SDLK_LALT,
-		SDLK_SPACE,			SDLK_LSHIFT,			SDLK_LSHIFT
+		SDLK_ESCAPE,			SDLK_RETURN,			SDLK_RETURN, 51
 #else		
 		SDLK_a,			SDLK_b,			SDLK_a,			SDLK_b,
 		SDLK_x,			SDLK_y,			SDLK_y
@@ -119,7 +138,7 @@ int pcePadGet() {
 		PAD_UP,			PAD_DN,			PAD_LF,			PAD_RI,
 		PAD_UP,			PAD_DN,			PAD_LF,			PAD_RI,
 		PAD_A,			PAD_B,			PAD_A,			PAD_B,
-		PAD_C,			PAD_D,			PAD_D,
+		PAD_C,			PAD_D,			PAD_D,      PAD_D,
 		-1
 	};
 
@@ -300,9 +319,9 @@ int main(int argc, char *argv[])
 		nextTick += interval;
 		cnt ++;
 
-		if((keys[SDLK_ESCAPE] == SDL_PRESSED && (keys[SDLK_RETURN] == SDL_PRESSED )) || event.type == SDL_QUIT) {
-			exec = 0;
-		}
+/*		if((keys[SDLK_ESCAPE] == SDL_PRESSED && (keys[SDLK_RETURN] == SDL_PRESSED )) || event.type == SDL_QUIT) {*/
+/*			exec = 0;*/
+/*		}*/
 	}
 
 	pceAppExit();
