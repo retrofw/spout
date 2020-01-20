@@ -1,0 +1,10 @@
+Package: spout
+Version: 
+Description: RetroGame port of Spout
+Section: emus
+Priority: optional
+Maintainer: pingflood
+Architecture: mipsel
+Homepage: https://github.com/retrofw/spout
+Depends:
+Source: https://github.com/retrofw/spout

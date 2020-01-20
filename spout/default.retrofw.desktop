@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Spout
+Comment=Spout port
+Exec=spout.dge
+Icon=spout
+Categories=games;
+Terminal=false
+Type=Application
+StartupNotify=true
+X-OD-Manual=spout.man.txt

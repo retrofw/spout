@@ -1,0 +1,4 @@
+title=Spout
+description=Spout port
+exec=/home/retrofw/games/spout/spout.dge
+clock=600
